@@ -896,10 +896,10 @@
                     <table style="width: 100%;">
                         <tr>
                             <td style="width: 25%;">
-                                <span style="font-weight: bold; font-size: 14px;">MANAGER(Stores&Purchase)</span>
+                                <span style="font-weight: bold; font-size: 14px;">PREPARED BY</span>
                             </td>
                             <td style="width: 25%;">
-                                <span style="font-weight: bold; font-size: 14px;">GENERAL MANAGER</span>
+                                <span style="font-weight: bold; font-size: 14px;">MANAGER</span>
                             </td>
                             <td style="width: 25%;">
                                 <span style="font-weight: bold; font-size: 14px;">DIRECTOR</span>
