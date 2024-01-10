@@ -10760,7 +10760,7 @@ public class FleetManagementHandler : IHttpHandler, IRequiresSessionState
             DateTime ServerDateCurrentdate = SalesDBManager.GetTime(vdm.conn);
             string branchid = context.Session["Po_BranchID"].ToString();
             cmd = new SqlCommand("SELECT productmoniter.qty AS moniterqty, outwarddetails.sno,outwarddetails.modeofoutward,outwarddetails.indentno, outwarddetails.issueno, outwarddetails.inwarddate,uimmaster.uim, productmaster.productname, productmaster.productcode, outwarddetails.dcno, outwarddetails.branch_id, outwarddetails.section_id,  outwarddetails.remarks, suboutwarddetails.sno AS Expr1, suboutwarddetails.productid, suboutwarddetails.quantity, suboutwarddetails.perunit, suboutwarddetails.totalcost, suboutwarddetails.in_refno,  sectionmaster.name FROM outwarddetails INNER JOIN suboutwarddetails ON outwarddetails.sno = suboutwarddetails.in_refno INNER JOIN productmaster ON suboutwarddetails.productid = productmaster.productid LEFT OUTER JOIN sectionmaster ON outwarddetails.section_id = sectionmaster.sectionid INNER JOIN productmoniter ON productmoniter.productid= suboutwarddetails.productid LEFT OUTER JOIN  uimmaster ON  uimmaster.sno=productmaster.uim WHERE (outwarddetails.status='P') and (outwarddetails.inwarddate BETWEEn @d1 AND @d2) AND (productmoniter.branchid=@branchid)  ORDER BY outwarddetails.inwarddate");
-            cmd.Parameters.Add("@d1", GetLowDate(ServerDateCurrentdate).AddDays(-10));
+            cmd.Parameters.Add("@d1", GetLowDate(ServerDateCurrentdate).AddDays(-18));
             cmd.Parameters.Add("@d2", GetHighDate(ServerDateCurrentdate));
             cmd.Parameters.Add("@branchid", branchid);
             DataTable routes = vdm.SelectQuery(cmd).Tables[0];
@@ -11273,6 +11273,12 @@ public class FleetManagementHandler : IHttpHandler, IRequiresSessionState
                         cmd.Parameters.Add("@ibid", branchid);
                         vdm.insert(cmd);
                     }
+                    cmd = new SqlCommand("UPDATE productmaster SET availablestores=@availablestores, price=@price where branchid=@branchid AND productid=@productid");
+                    cmd.Parameters.Add("@productid", si.productid);
+                    cmd.Parameters.Add("@availablestores", si.qty);
+                    cmd.Parameters.Add("@price", si.price);
+                    cmd.Parameters.Add("@branchid", branchid);
+                    vdm.Update(cmd);
                 }
                 string msg = "Stock Closed successfully";
                 string Response = GetJson(msg);

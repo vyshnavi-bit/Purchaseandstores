@@ -358,7 +358,7 @@
                     totpf += pf_amount;
 
                     var tot_amount = 0;
-                    tot_amount = diswithamount + pf_amount;
+                    tot_amount = diswithamount;
                     tot_amount1 += tot_amount;
 
                     sgst_amt = (tot_amount * sgst_per) / 100 || 0;
@@ -406,7 +406,7 @@
                     //                    else if (rev_chrg == "N") {
                     //                        grandtotal = tot_amount  + igst_amt + transcharge + amountfright;
                     //                    } else {grandtotal = tot_amount + igst_amt + transcharge + amountfright; }
-                    grandtotal1 += grandtotal;
+                    grandtotal1 += grandtotal ;
                     amountfright = 0;
                     transcharge = 0;
 
@@ -420,6 +420,15 @@
                     $('#lblfright').hide();
                     document.getElementById('spn_fright_amount').innerHTML = "";
                 }
+                if (totpf != 0) {
+                    document.getElementById('SspanP&f').innerHTML = parseFloat(totpf).toFixed(2);;
+                    $('#lblpf').show();
+                }
+                else {
+                    $('#lblpf').hide();
+                    document.getElementById('SspanP&f').innerHTML = "";
+                    totpf = 0;
+                }
                 if (transcharge1 != 0) {
                     document.getElementById('spn_transcharge').innerHTML = parseFloat(transcharge1).toFixed(2);
                     $('#lbltransport').show();
@@ -428,18 +437,17 @@
                     $('#lbltransport').hide();
                     document.getElementById('spn_transcharge').innerHTML = "";
                 }
-                $('#lblpf').hide();
                 $('#lbled').hide();
                 $('#lbl_total').hide();
-                var grandtotal2 = parseFloat(grandtotal1);
+                var grandtotal2 = parseFloat(grandtotal1) + totpf;
                 var grandtotal = grandtotal2.toFixed(2);
                 var diff = 0;
-                if (grandtotal2 > grandtotal1) {
-                    diff = grandtotal2 - grandtotal1;
-                }
-                else {
-                    diff = grandtotal1 - grandtotal2;
-                }
+                //if (grandtotal2 > grandtotal) {
+                //    diff = grandtotal2 - grandtotal1;
+                //}
+                //else {
+                //    diff = grandtotal2 - grandtotal1;
+                //}
                 document.getElementById('spn_totalpoamt').innerHTML = parseFloat(grandtotal2).toFixed(2);
                 document.getElementById('spn_roundoffamt').innerHTML = parseFloat(diff).toFixed(2);
                 document.getElementById('spn_grandtotal').innerHTML = parseFloat(grandtotal).toFixed(2);
